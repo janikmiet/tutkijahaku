@@ -1,0 +1,97 @@
+---
+title: "Neuro Researchers"
+date: "`r paste0('Updated: ', Sys.Date())`"
+output:
+  flexdashboard::flex_dashboard:
+    orientation: rows
+    # theme: xxx-theme-xxx
+    css: theme-neuro.css
+    highlight: tango  # specifies the syntax highlighting style
+---
+
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE, warning = FALSE, message = FALSE)
+library(flexdashboard)
+library(DT)
+# df <- readxl::read_xlsx("../data/tutkijat.xlsx")
+# dat <- df #[,c(1,2,4,5,16,31)]
+dat <- df %>% 
+  dplyr::mutate(Nimi = paste(`Last name`, `First name`),
+                Lupa= tolower(`Lupa julkaista vastaajalta (Yes or no)`),
+                `Link 1 (Research group website)` = NULL,
+                `Link 2 (Research portal)` = NULL,
+                `Link 3 (Clinical researcher website)` = NULL,
+                `Link 4 (Other website)` = NULL,
+                `Last name` <- NULL,
+                `First name` <- NULL) %>% 
+  dplyr::rename(Organisaatio = Organisation,
+                Tiedekunta = Faculty,
+                Avainsanat = `Key words`) %>% 
+  dplyr::filter(Lupa == "yes") -> dat
+dat$Organisaatio <- as.factor(dat$Organisaatio)
+# dat$Tiedekunta <- as.factor(dat$Tiedekunta)
+dat <- dat[, c("Nimi", "Organisaatio", "Tiedekunta", "Avainsanat", "Tiedot")]
+dat <- dat[order(dat$Nimi),]
+
+
+```
+
+
+Search
+=======================================================================
+
+Row
+-----------------------------------------------------------------------
+
+### Researchers
+
+```{r}
+valueBox(nrow(dat), icon = "fa-user")
+```
+
+### Organizations
+
+```{r}
+valueBox(length(unique(dat$Organisaatio)), icon = "fa-building")
+```
+
+### Faculties
+
+```{r}
+valueBox(length(unique(dat$Tiedekunta)), icon = "fa-sitemap")
+```
+
+
+
+Row
+-----------------------------------------------------------------------
+
+
+```{r datatable}
+DT::datatable(dat,
+              selection = c("single"),
+              rownames = FALSE, 
+              filter = 'top',
+              escape = FALSE,
+              #extensions = 'Buttons', 
+              options = list(
+                # order = list(list(0, 'desc'), list(2, 'asc')),
+                # dom = 'Bfrtip',
+                search = list(regex = TRUE, caseInsensitive = TRUE),
+                columnDefs = list(list(className = 'dt-left',  targets = "_all")),
+                pageLength = 20
+                # language = list(url = '//cdn.datatables.net/plug-ins/1.10.11/i18n/Finnish.json')
+                # dom = 'Bfrtip',
+                # buttons = c('copy', 'csv', 'excel', 'pdf', 'print')
+              )) 
+
+```
+
+About
+=======================================================================
+
+
+
+

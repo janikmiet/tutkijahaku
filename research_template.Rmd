@@ -1,0 +1,43 @@
+---
+title: "xxx-nimi-xxx"
+output: 
+  html_document:
+    toc: true # table of content true
+    toc_depth: 3  # upto three depths of headings (specified by #, ## and ###)
+    toc_float: true # floating toc
+    toc_collapsed: false # collapse 
+    number_sections: false  ## if you want number sections at each table header
+    #theme: xxx-theme-xxx  # many options for theme, this one is my favorite.
+    highlight: tango  # specifies the syntax highlighting style
+    css: mystyle.css   # you can add your custom css, should be in same folder
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+
+xxx-nimi-xxx </br>
+xxx-tittelit-xxx </br>
+xxx-email-xxx </br>
+xxx-organisation-xxx </br>
+xxx-faculty-xxx </br>
+
+xxx-orcid-xxx </br>
+
+xxx-description-xxx </br>
+
+Avainsanat: xxx-keywords-xxx </br>
+
+
+### Linkit
+
+xxx-link-xxx </br>
+xxx-link_group-xxx </br>
+xxx-link_portal-xxx </br>
+xxx-link_clinical-xxx </br>
+xxx-link_other-xxx </br>
+
+
+## [Takaisin](../index.html)
+
