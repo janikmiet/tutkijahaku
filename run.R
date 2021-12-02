@@ -19,12 +19,13 @@ if(TRUE){
     dplyr::select(`Last name`, `First name`, Organisation, Faculty, `Link 1 (Research group website)`, `Link 2 (Research portal)`, `Link 2 (Research portal)`, `Link 3 (Clinical researcher website)`, `Link 4 (Other website)`, ORCID, `Key words`,`Lupa julkaista vastaajalta (Yes or no)`)
   df4 <- readxl::read_xlsx("data/Tutkijalista_webropol päivitykset_koko_Suomi v2.xlsx", sheet = "Oulu") %>%
     dplyr::select(`Last name`, `First name`, Organisation, Faculty, `Link 1 (Research group website)`, `Link 2 (Research portal)`, `Link 2 (Research portal)`, `Link 3 (Clinical researcher website)`, `Link 4 (Other website)`, ORCID, `Key words`,`Lupa julkaista vastaajalta (Yes or no)`)
-  # df5 <- readxl::read_xlsx("data/Tutkijalista_webropol päivitykset_koko_Suomi v2.xlsx", sheet = "Tampere")
+  df5 <- readxl::read_xlsx("data/Tutkijalista_webropol päivitykset_koko_Suomi v2.xlsx", sheet = "Tampere") %>%
+    dplyr::select(`Last name`, `First name`, Organisation, Faculty, `Link 1 (Research group website)`, `Link 2 (Research portal)`, `Link 2 (Research portal)`, `Link 3 (Clinical researcher website)`, `Link 4 (Other website)`, ORCID, `Key words`,`Lupa julkaista vastaajalta (Yes or no)`)
   df6 <- readxl::read_xlsx("data/Tutkijalista_webropol päivitykset_koko_Suomi v2.xlsx", sheet = "Turku") %>%
     dplyr::select(`Last name`, `First name`, Organisation, Faculty, `Link 1 (Research group website)`, `Link 2 (Research portal)`, `Link 2 (Research portal)`, `Link 3 (Clinical researcher website)`, `Link 4 (Other website)`, ORCID, `Key words`,`Lupa julkaista vastaajalta (Yes or no)`)
   df7 <- readxl::read_xlsx("data/Tutkijalista_webropol päivitykset_koko_Suomi v2.xlsx", sheet = "Other") %>%
     dplyr::select(`Last name`, `First name`, Organisation, Faculty, `Link 1 (Research group website)`, `Link 2 (Research portal)`, `Link 2 (Research portal)`, `Link 3 (Clinical researcher website)`, `Link 4 (Other website)`, ORCID, `Key words`,`Lupa julkaista vastaajalta (Yes or no)`)
-  df <- rbind(df1,df2,df3,df4,df6,df7)
+  df <- rbind(df1,df2,df3,df4,df5,df6,df7)
   
   ## Create URL link
   filenames <- gsub(pattern = " ", 
@@ -45,9 +46,9 @@ if(TRUE){
     df$`Link 1 (Research group website)`
   )
   # df$Tiedot <- paste0("<a href='",df$url,"'>Tiedot</a>") 
-  df$Tiedot <- ifelse(is.na(df$url),
+  df$Linkki <- ifelse(is.na(df$url),
                       NA,
-                      paste0("<a href='",df$url,"'>Tiedot</a>") )
+                      paste0("<a href='",df$url,"'>Link</a>") )
   
 }
 

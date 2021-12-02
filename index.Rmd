@@ -28,11 +28,12 @@ dat <- df %>%
                 `First name` <- NULL) %>% 
   dplyr::rename(Organisaatio = Organisation,
                 Tiedekunta = Faculty,
-                Avainsanat = `Key words`) %>% 
-  dplyr::filter(Lupa == "yes") -> dat
+                Avainsanat = `Key words`) -> dat
+# %>% dplyr::filter(Lupa == "yes")
+
 dat$Organisaatio <- as.factor(dat$Organisaatio)
 # dat$Tiedekunta <- as.factor(dat$Tiedekunta)
-dat <- dat[, c("Nimi", "Organisaatio", "Tiedekunta", "Avainsanat", "Tiedot")]
+dat <- dat[, c("Nimi", "Organisaatio", "Tiedekunta", "Avainsanat", "Linkki")]
 dat <- dat[order(dat$Nimi),]
 
 
