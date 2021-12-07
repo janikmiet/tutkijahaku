@@ -33,22 +33,22 @@ if(TRUE){
                    x = paste0("./temp/tutkijat/", df$`Last name`, "-", df$`First name`))
   # df$url <- paste0("tutkijat/", filenames, ".html")
   df$url <- ifelse(
-    is.na(df$`Link 1 (Research group website)`),
+    is.na(df$`Link 2 (Research portal)`),
     ifelse(
-      is.na(df$`Link 2 (Research portal)`),
+      is.na(df$`Link 1 (Research group website)`),
       ifelse(
         is.na(df$`Link 3 (Clinical researcher website)`),
         ifelse(is.na(df$`Link 4 (Other website)`),
                df$ORCID,
                df$`Link 4 (Other website)`),
         df$`Link 3 (Clinical researcher website)`),
-      df$`Link 2 (Research portal)`),
-    df$`Link 1 (Research group website)`
+      df$`Link 1 (Research group website)`),
+    df$`Link 2 (Research portal)`
   )
   # df$Tiedot <- paste0("<a href='",df$url,"'>Tiedot</a>") 
   df$Linkki <- ifelse(is.na(df$url),
                       NA,
-                      paste0("<a href='",df$url,"'>Link</a>") )
+                      paste0("<a href='",df$url,"'>web page</a>") )
   
 }
 

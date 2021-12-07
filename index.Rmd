@@ -18,23 +18,25 @@ library(DT)
 # df <- readxl::read_xlsx("../data/tutkijat.xlsx")
 # dat <- df #[,c(1,2,4,5,16,31)]
 dat <- df %>% 
-  dplyr::mutate(Nimi = paste(`Last name`, `First name`),
+  dplyr::mutate(Name = paste(`Last name`, `First name`),
                 Lupa= tolower(`Lupa julkaista vastaajalta (Yes or no)`),
                 `Link 1 (Research group website)` = NULL,
                 `Link 2 (Research portal)` = NULL,
                 `Link 3 (Clinical researcher website)` = NULL,
                 `Link 4 (Other website)` = NULL,
                 `Last name` <- NULL,
-                `First name` <- NULL) %>% 
-  dplyr::rename(Organisaatio = Organisation,
-                Tiedekunta = Faculty,
-                Avainsanat = `Key words`) -> dat
+                `First name` <- NULL,
+                `Key words` = tolower(`Key words`)) %>% 
+  dplyr::rename(
+                `Faculty/other specification` = Faculty,
+                Keywords = `Key words`,
+                `Web page` = Linkki) -> dat
 # %>% dplyr::filter(Lupa == "yes")
 
-dat$Organisaatio <- as.factor(dat$Organisaatio)
+dat$Organisation <- as.factor(dat$Organisation)
 # dat$Tiedekunta <- as.factor(dat$Tiedekunta)
-dat <- dat[, c("Nimi", "Organisaatio", "Tiedekunta", "Avainsanat", "Linkki")]
-dat <- dat[order(dat$Nimi),]
+dat <- dat[, c("Name", "Organisation", "Faculty/other specification", "Keywords", "Web page")]
+dat <- dat[order(dat$Name),]
 
 
 ```
@@ -55,13 +57,13 @@ valueBox(nrow(dat), icon = "fa-user")
 ### Organizations
 
 ```{r}
-valueBox(length(unique(dat$Organisaatio)), icon = "fa-building")
+valueBox(length(unique(dat$Organisation)), icon = "fa-building")
 ```
 
 ### Faculties
 
 ```{r}
-valueBox(length(unique(dat$Tiedekunta)), icon = "fa-sitemap")
+valueBox(length(unique(dat$`Faculty/other specification`)), icon = "fa-sitemap")
 ```
 
 
