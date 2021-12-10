@@ -27,15 +27,18 @@ dat <- df %>%
                 `Last name` <- NULL,
                 `First name` <- NULL,
                 `Key words` = tolower(`Key words`)) %>% 
+  dplyr::filter(Lupa == "yes") %>%
   dplyr::rename(
-                `Faculty/other specification` = Faculty,
+                `Expertise areas` = Faculty,
                 Keywords = `Key words`,
-                `Web page` = Linkki) -> dat
-# %>% dplyr::filter(Lupa == "yes")
+                `Web page` = Linkki) 
 
-dat$Organisation <- as.factor(dat$Organisation)
+# orgmembers <- c("Aalto University", "HUS", "University of Helsinki", "University of Eastern Finland", "University of Jyväskylä", "University of Oulu", "Tampere University Hospital", "Tampere University", "University of Turku", "Oulu University Hospital", "Kuopio University Hospital",  "Turku University Hospital")
+# dat$Organization <- ifelse(Organization %in% orgmembers, Organization, "Other")
+
+dat$Organization <- as.factor(dat$Organisation)
 # dat$Tiedekunta <- as.factor(dat$Tiedekunta)
-dat <- dat[, c("Name", "Organisation", "Faculty/other specification", "Keywords", "Web page")]
+dat <- dat[, c("Name", "Organization", "Expertise areas", "Keywords", "Web page")]
 dat <- dat[order(dat$Name),]
 
 
@@ -57,13 +60,13 @@ valueBox(nrow(dat), icon = "fa-user")
 ### Organizations
 
 ```{r}
-valueBox(length(unique(dat$Organisation)), icon = "fa-building")
+valueBox(length(unique(dat$Organization)), icon = "fa-building")
 ```
 
-### Faculties
+### Expertise areas 
 
 ```{r}
-valueBox(length(unique(dat$`Faculty/other specification`)), icon = "fa-sitemap")
+valueBox(length(unique(dat$`Expertise areas`)), icon = "fa-sitemap")
 ```
 
 
