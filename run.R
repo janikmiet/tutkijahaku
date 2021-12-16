@@ -12,20 +12,20 @@ if(TRUE){
   
   ## Read the latest files
   df1 <- readxl::read_xlsx("data/Tutkijalista_webropol päivitykset_koko_Suomi v2.xlsx", sheet = "Helsinki") %>%
-    dplyr::select(`Last name`, `First name`, Organisation, Faculty, `Link 1 (Research group website)`, `Link 2 (Research portal)`, `Link 2 (Research portal)`, `Link 3 (Clinical researcher website)`, `Link 4 (Other website)`, ORCID, `Key words`, `Lupa julkaista vastaajalta (Yes or no)`)
+    dplyr::select(`Last name`, `First name`, Organisation, Faculty, `Link 1 (Research group website)`, `Link 2 (Research portal)`, `Link 2 (Research portal)`, `Link 3 (Clinical researcher website)`, `Link 4 (Other website)`, ORCID, `Key words`, `Publish`)
   df2 <- readxl::read_xlsx("data/Tutkijalista_webropol päivitykset_koko_Suomi v2.xlsx", sheet = "Jyväskylä") %>%
-    dplyr::select(`Last name`, `First name`, Organisation, Faculty, `Link 1 (Research group website)`, `Link 2 (Research portal)`, `Link 2 (Research portal)`, `Link 3 (Clinical researcher website)`, `Link 4 (Other website)`, ORCID, `Key words`,`Lupa julkaista vastaajalta (Yes or no)`)
+    dplyr::select(`Last name`, `First name`, Organisation, Faculty, `Link 1 (Research group website)`, `Link 2 (Research portal)`, `Link 2 (Research portal)`, `Link 3 (Clinical researcher website)`, `Link 4 (Other website)`, ORCID, `Key words`,`Publish`)
   df3 <- readxl::read_xlsx("data/Tutkijalista_webropol päivitykset_koko_Suomi v2.xlsx", sheet = "Kuopio") %>%
-    dplyr::select(`Last name`, `First name`, Organisation, Faculty, `Link 1 (Research group website)`, `Link 2 (Research portal)`, `Link 2 (Research portal)`, `Link 3 (Clinical researcher website)`, `Link 4 (Other website)`, ORCID, `Key words`,`Lupa julkaista vastaajalta (Yes or no)`)
+    dplyr::select(`Last name`, `First name`, Organisation, Faculty, `Link 1 (Research group website)`, `Link 2 (Research portal)`, `Link 2 (Research portal)`, `Link 3 (Clinical researcher website)`, `Link 4 (Other website)`, ORCID, `Key words`,`Publish`)
   df4 <- readxl::read_xlsx("data/Tutkijalista_webropol päivitykset_koko_Suomi v2.xlsx", sheet = "Oulu") %>%
-    dplyr::select(`Last name`, `First name`, Organisation, Faculty, `Link 1 (Research group website)`, `Link 2 (Research portal)`, `Link 2 (Research portal)`, `Link 3 (Clinical researcher website)`, `Link 4 (Other website)`, ORCID, `Key words`,`Lupa julkaista vastaajalta (Yes or no)`)
+    dplyr::select(`Last name`, `First name`, Organisation, Faculty, `Link 1 (Research group website)`, `Link 2 (Research portal)`, `Link 2 (Research portal)`, `Link 3 (Clinical researcher website)`, `Link 4 (Other website)`, ORCID, `Key words`,`Publish`)
   df5 <- readxl::read_xlsx("data/Tutkijalista_webropol päivitykset_koko_Suomi v2.xlsx", sheet = "Tampere") %>%
-    dplyr::select(`Last name`, `First name`, Organisation, Faculty, `Link 1 (Research group website)`, `Link 2 (Research portal)`, `Link 2 (Research portal)`, `Link 3 (Clinical researcher website)`, `Link 4 (Other website)`, ORCID, `Key words`,`Lupa julkaista vastaajalta (Yes or no)`)
+    dplyr::select(`Last name`, `First name`, Organisation, Faculty, `Link 1 (Research group website)`, `Link 2 (Research portal)`, `Link 2 (Research portal)`, `Link 3 (Clinical researcher website)`, `Link 4 (Other website)`, ORCID, `Key words`,`Publish`)
   df6 <- readxl::read_xlsx("data/Tutkijalista_webropol päivitykset_koko_Suomi v2.xlsx", sheet = "Turku") %>%
-    dplyr::select(`Last name`, `First name`, Organisation, Faculty, `Link 1 (Research group website)`, `Link 2 (Research portal)`, `Link 2 (Research portal)`, `Link 3 (Clinical researcher website)`, `Link 4 (Other website)`, ORCID, `Key words`,`Lupa julkaista vastaajalta (Yes or no)`)
-  df7 <- readxl::read_xlsx("data/Tutkijalista_webropol päivitykset_koko_Suomi v2.xlsx", sheet = "Other") %>%
-    dplyr::select(`Last name`, `First name`, Organisation, Faculty, `Link 1 (Research group website)`, `Link 2 (Research portal)`, `Link 2 (Research portal)`, `Link 3 (Clinical researcher website)`, `Link 4 (Other website)`, ORCID, `Key words`,`Lupa julkaista vastaajalta (Yes or no)`)
-  df <- rbind(df1,df2,df3,df4,df5,df6,df7)
+    dplyr::select(`Last name`, `First name`, Organisation, Faculty, `Link 1 (Research group website)`, `Link 2 (Research portal)`, `Link 2 (Research portal)`, `Link 3 (Clinical researcher website)`, `Link 4 (Other website)`, ORCID, `Key words`,`Publish`)
+  # df7 <- readxl::read_xlsx("data/Tutkijalista_webropol päivitykset_koko_Suomi v2.xlsx", sheet = "Other") %>%
+  #   dplyr::select(`Last name`, `First name`, Organisation, Faculty, `Link 1 (Research group website)`, `Link 2 (Research portal)`, `Link 2 (Research portal)`, `Link 3 (Clinical researcher website)`, `Link 4 (Other website)`, ORCID, `Key words`,`Publish`)
+  df <- rbind(df1,df2,df3,df4,df5,df6)
   
   ## Create URL link
   filenames <- gsub(pattern = " ", 
@@ -48,7 +48,9 @@ if(TRUE){
   # df$Tiedot <- paste0("<a href='",df$url,"'>Tiedot</a>") 
   df$Linkki <- ifelse(is.na(df$url),
                       NA,
-                      paste0("<a href='",df$url,"'>web page</a>") )
+                      paste0('<a href="',df$url,'" target="_blank" rel="noopener noreferrer">web page</a>') )
+                      # paste0("<a href='",df$url,"' target='_blank' rel='noopener noreferrer'>web page</a>") )
+                      # paste0("<a href='",df$url,"'>web page</a>") )
   
 }
 

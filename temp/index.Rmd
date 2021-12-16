@@ -19,7 +19,7 @@ library(DT)
 # dat <- df #[,c(1,2,4,5,16,31)]
 dat <- df %>% 
   dplyr::mutate(Name = paste(`Last name`, `First name`),
-                Lupa= tolower(`Lupa julkaista vastaajalta (Yes or no)`),
+                Publish= tolower(`Publish`),
                 `Link 1 (Research group website)` = NULL,
                 `Link 2 (Research portal)` = NULL,
                 `Link 3 (Clinical researcher website)` = NULL,
@@ -27,9 +27,9 @@ dat <- df %>%
                 `Last name` <- NULL,
                 `First name` <- NULL,
                 `Key words` = tolower(`Key words`)) %>% 
-  dplyr::filter(Lupa == "yes") %>%
+  dplyr::filter(Publish == "yes") %>%
   dplyr::rename(
-                `Expertise areas` = Faculty,
+                `Faculty / Field of expertise` = Faculty,
                 Keywords = `Key words`,
                 `Web page` = Linkki) 
 
@@ -38,7 +38,7 @@ dat <- df %>%
 
 dat$Organization <- as.factor(dat$Organisation)
 # dat$Tiedekunta <- as.factor(dat$Tiedekunta)
-dat <- dat[, c("Name", "Organization", "Expertise areas", "Keywords", "Web page")]
+dat <- dat[, c("Name", "Organization", "Faculty / Field of expertise", "Keywords", "Web page")]
 dat <- dat[order(dat$Name),]
 
 
@@ -63,10 +63,10 @@ valueBox(nrow(dat), icon = "fa-user")
 valueBox(length(unique(dat$Organization)), icon = "fa-building")
 ```
 
-### Expertise areas 
+### Faculties
 
 ```{r}
-valueBox(length(unique(dat$`Expertise areas`)), icon = "fa-sitemap")
+valueBox(length(unique(dat$`Faculty / Field of expertise`)), icon = "fa-sitemap")
 ```
 
 
